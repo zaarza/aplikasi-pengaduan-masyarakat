@@ -38,7 +38,7 @@ class Auth extends Controller
         $model = $this->model("User_Model");
 
         if ($model->login($_POST)) {
-            header('Location:' . BASE_URL . "/home");
+            header('Location:' . BASE_URL . "/");
             exit;
         } else {
             Flasher::setFlash($model->getErrorMessage(), "danger");
