@@ -111,6 +111,7 @@ class User_Model
 
         // Check password
         if (password_verify($data['password'], $result['password'])) {
+            $_SESSION['user'] = $result;
             return true;
         }
 

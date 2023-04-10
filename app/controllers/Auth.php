@@ -38,9 +38,22 @@ class Auth extends Controller
         $model = $this->model("User_Model");
 
         if ($model->login($_POST)) {
+            header('Location:' . BASE_URL . "/home");
+            exit;
         } else {
             Flasher::setFlash($model->getErrorMessage(), "danger");
             header('Location:' . BASE_URL . "/auth/login");
+            exit;
+        }
+    }
+
+    public function logOut()
+    {
+        if (isset($_SESSION['user'])) {
+            unset($_SESSION['user']);
+
+            Flasher::setFlash("Anda berhasil logout", "success");
+            header('Location:' . BASE_URL . "/");
             exit;
         }
     }
