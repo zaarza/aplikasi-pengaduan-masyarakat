@@ -16,38 +16,43 @@
     <div class="">
         <h3>Aduan Saya</h3>
         <p>Daftar aduan yang telah Anda buat</p>
-        <table class="table table-bordered align-middle table-hover text-center">
-            <tr>
-                <th><input type="checkbox" name="" id=""></th>
-                <th>Judul</th>
-                <th>Waktu Aduan</th>
-                <th>Waktu Diperbarui</th>
-                <th>Status</th>
-                <th>Aksi</th>
-            </tr>
-
-            <?php if (empty($data['complaints'])) : ?>
+        <form action="<?= BASE_URL; ?>/Index/deleteMultipleComplaint" method="POST">
+            <table class="table table-bordered align-middle table-hover text-center">
                 <tr>
-                    <td class="text-center p-5" colspan="6">Anda belum pernah membuat aduan!</td>
+                    <th><input type="checkbox" name="selectAll" id="selectAll"></th>
+                    <th>Judul</th>
+                    <th>Waktu Aduan</th>
+                    <th>Waktu Diperbarui</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
                 </tr>
-            <?php else : ?>
-                <?php foreach ($data['complaints'] as $complaint) : ?>
+
+                <?php if (empty($data['complaints'])) : ?>
                     <tr>
-                        <td><input type="checkbox" name="" id=""></td>
-                        <td><?= $complaint['title'] ?></td>
-                        <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
-                        <td><?= $complaint['editedAt'] ?></td>
-                        <td><?= $complaint['status'] ?></td>
-                        <td class="d-flex column-gap-2 justify-content-center">
-                            <a href="" class="btn btn-success">Ubah</a>
-                            <a href="" class="btn btn-primary">Detail</a>
-                            <a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')">Hapus</a>
-                        </td>
-                        </th>
+                        <td class="text-center p-5" colspan="6">Anda belum pernah membuat aduan!</td>
                     </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </table>
+                <?php else : ?>
+                    <?php foreach ($data['complaints'] as $complaint) : ?>
+                        <tr>
+                            <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>"></td>
+                            <td><?= $complaint['title'] ?></td>
+                            <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
+                            <td><?= $complaint['editedAt'] ?></td>
+                            <td><?= $complaint['status'] ?></td>
+                            <td class="d-flex column-gap-2 justify-content-center">
+                                <a href="" class="btn btn-success">Ubah</a>
+                                <a href="" class="btn btn-primary">Detail</a>
+                                <a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')">Hapus</a>
+                            </td>
+                            </th>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </table>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus aduan yang dipilih?')">Hapus dililih</button>
+        </form>
+
+
     </div>
 
     <!-- Add complaint modal -->

@@ -48,4 +48,19 @@ class Index extends Controller
         header('Location:' . BASE_URL . '/');
         exit;
     }
+
+    public function deleteMultipleComplaint()
+    {
+        $model = $this->model("Complaint_Model");
+        $complaints = $_POST['complaints'] ?? [];
+
+        foreach ($complaints as $complaint) {
+
+            $model->deleteComplaint($complaint);
+        }
+
+        Flasher::setFlash('Berhasil menghapus aduan! ' . $model->getErrorMessage(), "success");
+        header('Location:' . BASE_URL . '/');
+        exit;
+    }
 }
