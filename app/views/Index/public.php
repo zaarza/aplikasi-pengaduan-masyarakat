@@ -35,13 +35,13 @@
                     <tr>
                         <td><input type="checkbox" name="" id=""></td>
                         <td><?= $complaint['title'] ?></td>
-                        <td><?= $complaint['createdAt'] ?></td>
+                        <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
                         <td><?= $complaint['editedAt'] ?></td>
-                        <td><?= $complaint['editedAt'] ?></td>
+                        <td><?= $complaint['status'] ?></td>
                         <td class="d-flex column-gap-2 justify-content-center">
                             <a href="" class="btn btn-success">Ubah</a>
                             <a href="" class="btn btn-primary">Detail</a>
-                            <a href="" class="btn btn-danger">Hapus</a>
+                            <a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')">Hapus</a>
                         </td>
                         </th>
                     </tr>

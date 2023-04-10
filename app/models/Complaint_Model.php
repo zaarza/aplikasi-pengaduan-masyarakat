@@ -78,4 +78,12 @@ class Complaint_Model
 
         return $this->database->getManyResult();
     }
+
+    public function deleteComplaint($id)
+    {
+        $this->database->query("DELETE FROM $this->tableName WHERE id=:id");
+        $this->database->bind("id", intval($id));
+
+        $this->database->execute();
+    }
 }

@@ -38,4 +38,14 @@ class Index extends Controller
 
         $model->addComplaint($_POST, $_FILES);
     }
+
+    public function deleteComplaint($id)
+    {
+        $model = $this->model("Complaint_Model");
+        $model->deleteComplaint($id);
+
+        Flasher::setFlash('Berhasil menghapus aduan! ' . $model->getErrorMessage(), "success");
+        header('Location:' . BASE_URL . '/');
+        exit;
+    }
 }
