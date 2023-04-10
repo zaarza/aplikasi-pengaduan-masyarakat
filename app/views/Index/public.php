@@ -19,7 +19,7 @@
         <form action="<?= BASE_URL; ?>/Index/deleteMultipleComplaint" method="POST">
             <table class="table table-bordered align-middle table-hover text-center">
                 <tr>
-                    <th><input type="checkbox" name="selectAll" id="selectAll"></th>
+                    <th><input type="checkbox" name="selectAll" id="selectAll" onclick="checkAllComplaints(event)"></th>
                     <th>Judul</th>
                     <th>Waktu Aduan</th>
                     <th>Waktu Diperbarui</th>
@@ -34,7 +34,7 @@
                 <?php else : ?>
                     <?php foreach ($data['complaints'] as $complaint) : ?>
                         <tr>
-                            <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>"></td>
+                            <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>" class="complaints"></td>
                             <td><?= $complaint['title'] ?></td>
                             <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
                             <td><?= $complaint['editedAt'] ?></td>
