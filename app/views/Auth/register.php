@@ -1,4 +1,5 @@
 <div class="container p-5 d-flex flex-column row-gap-2">
+    <?php Flasher::flash() ?>
     <div class="">
         <h1>Daftar</h1>
         <p>Pastikan data yang Anda masukkan benar dan valid!</p>
@@ -8,7 +9,7 @@
     <form action="<?= BASE_URL; ?>/auth/register" method="POST">
         <div class="mb-4">
             <label for="nik" class="form-label">Nomor Induk Kependudukan (NIK)</label>
-            <input type="number" class="form-control" id="nik" name="nik">
+            <input type="number" class="form-control" id="nik" name="nik" value="<?= $_POST['nik'] ?? "" ?>">
             <div class="form-text">NIK yang dimasukkan harus berisi 16 digit angka</div>
         </div>
 
@@ -25,7 +26,11 @@
 
         <div class="mb-4">
             <label for="numberPhone" class="form-label">Nomor yang bisa dihubungi</label>
-            <input type="number" class="form-control" id="numberPhone" name="numberPhone">
+            <div class="input-group">
+                <span class="input-group-text">+62</span>
+                <input type="text" class="form-control" name="phoneNumber">
+            </div>
+
             <div class="form-text">Nomor akan digunakan jika diperlukan</div>
         </div>
 
