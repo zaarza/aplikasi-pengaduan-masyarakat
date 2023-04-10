@@ -10,7 +10,7 @@ class App
         $url = $this->urlParser();
 
         // Controller
-        if (file_exists('../controllers/' . ucwords($url[0]) . '.php')) {
+        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
             $this->controller = ucwords($url[0]);
             unset($url[0]);
         }
@@ -21,7 +21,7 @@ class App
         // Method
         if (isset($url[1])) {
             if (method_exists($this->controller, strtolower($url[1]))) {
-                $this->method = $url;
+                $this->method = $url[1];
                 unset($url[1]);
             }
         }
@@ -40,7 +40,7 @@ class App
             $url = $_GET['url'];
 
             // Remove slash in last word
-            $url = rtrim($url);
+            $url = rtrim($url, '/');
 
             // Filter url
             $url = filter_var($url, FILTER_SANITIZE_URL);

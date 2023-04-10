@@ -3,9 +3,9 @@ class Home extends Controller
 {
     public function index()
     {
-        $data['title'] = 'Home';
+        $data['title'] = 'Beranda';
         $this->view("templates/header", $data);
-        $this->view("Home/index");
+        $this->view("Home/no-login");
         $this->view("templates/footer");
     }
 }
