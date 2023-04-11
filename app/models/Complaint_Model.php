@@ -57,8 +57,6 @@ class Complaint_Model
             return false;
         }
 
-        var_dump($data);
-
         $this->database->query("INSERT INTO $this->tableName VALUES (NULL, :userId, :title, :description, :location, :image, :createdAt, NULL, 0)");
         $this->database->bind("userId", intval($_SESSION['user']['id']));
         $this->database->bind("title", $data['title']);
@@ -98,7 +96,7 @@ class Complaint_Model
 
     public function updateComplaint($data, $image)
     {
-        if ($image['error'] === 4) {
+        if ($image['image']['error'] === 4) {
             $this->database->query("UPDATE $this->tableName SET title=:title, description=:description, location=:location, editedAt=:editedAt WHERE id=:id");
         } else {
             $image = $this->uploadImage($image);
@@ -115,8 +113,7 @@ class Complaint_Model
         $this->database->bind("description", $data['description']);
         $this->database->bind("location", $data['location']);
         $this->database->bind("editedAt", strval(time()));
-        $this->database->bind("id", intval($_SESSION['user']['id']));
-
+        $this->database->bind("id", intval($data['id']));
 
         $this->database->execute();
         return $this->database->rowCount();

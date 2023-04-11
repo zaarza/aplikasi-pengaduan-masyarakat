@@ -72,10 +72,10 @@ class Index extends Controller
         echo json_encode($data);
     }
 
-    public function updateComplaint()
+    public function updateComplaint($id)
     {
         $model = $this->model("Complaint_Model");
-        $_POST['id'] = $_SESSION['user']['id'];
+        $_POST['id'] = $id;
 
         if ($model->updateComplaint($_POST, $_FILES) > 0) {
             Flasher::setFlash('Berhasil mengubah aduan!', "success");

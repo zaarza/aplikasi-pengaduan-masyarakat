@@ -41,7 +41,7 @@
                             <td><?= $complaint['status'] ?></td>
                             <td class="d-flex column-gap-2 justify-content-center">
                                 <button class="btn btn-success" onclick="toggleUpdateComplaintModal(event)" data-bs-toggle="modal" data-bs-target="#modalComplaint" type="button" data-id="<?= $complaint['id'] ?>">Ubah</button>
-                                <button class="btn btn-primary" type="button" onclick="toggleDetailComplaintModal()" data-bs-toggle="modal" data-bs-target="#modalComplaint">Detail</button>
+                                <button class="btn btn-primary" type="button" onclick="toggleDetailComplaintModal(event)" data-bs-toggle="modal" data-bs-target="#modalComplaint" data-id="<?= $complaint['id'] ?>">Detail</button>
                                 <a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')">Hapus</a>
                             </td>
                             </th>

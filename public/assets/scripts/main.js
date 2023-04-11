@@ -27,10 +27,11 @@ function toggleAddComplaintModal() {
   document
     .getElementById("complaintModalFormImagePreview")
     .classList.add("visually-hidden");
+  document.getElementById("complaintModalFormSubmit").style.display = "inherit";
   document.getElementById("complaintModalFormSubmit").textContent = "Tambah";
 }
 
-function toggleUpdateComplaintModal() {
+function toggleUpdateComplaintModal(event) {
   document.getElementById("complaintModalTitle").innerHTML = "Ubah aduan";
 
   const xhr = new XMLHttpRequest();
@@ -38,13 +39,14 @@ function toggleUpdateComplaintModal() {
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && xhr.status === 200) {
       const data = JSON.parse(xhr.response);
-      console.log(data);
 
       document
         .getElementById("complaintModalForm")
         .setAttribute(
           "action",
-          "http://localhost:81/aplikasi-pengaduan-masyarakat/public/Index/updateComplaint"
+          `http://localhost:81/aplikasi-pengaduan-masyarakat/public/Index/updateComplaint/${event.target.getAttribute(
+            "data-id"
+          )}`
         );
       document.getElementById("complaintModalFormTitle").value = data.title;
       document.getElementById("complaintModalFormDescription").value =
@@ -60,6 +62,8 @@ function toggleUpdateComplaintModal() {
       document
         .getElementById("complaintModalFormImagePreview")
         .classList.remove("visually-hidden");
+      document.getElementById("complaintModalFormSubmit").style.display =
+        "inherit";
       document.getElementById("complaintModalFormSubmit").textContent =
         "Simpan";
     }
@@ -73,6 +77,42 @@ function toggleUpdateComplaintModal() {
   xhr.send(`id=${event.target.getAttribute("data-id")}`);
 }
 
-function toggleDetailComplaintModal() {
+function toggleDetailComplaintModal(event) {
   document.getElementById("complaintModalTitle").innerHTML = "Detail aduan";
+  document.getElementById("complaintModalForm").setAttribute("action", "");
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const data = JSON.parse(xhr.response);
+
+      document.getElementById("complaintModalFormTitle").value = data.title;
+      document.getElementById("complaintModalFormDescription").value =
+        data.description;
+      document.getElementById("complaintModalFormLocation").value =
+        data.location;
+      document
+        .getElementById("complaintModalFormImagePreview")
+        .setAttribute(
+          "src",
+          `http://localhost:81/aplikasi-pengaduan-masyarakat/public/assets/images/uploaded/${data.image}`
+        );
+      document
+        .getElementById("complaintModalFormImagePreview")
+        .classList.remove("visually-hidden");
+      document
+        .getElementById("complaintModalFormImage")
+        .classList.add("visually-hidden");
+      document.getElementById("complaintModalFormSubmit").style.display =
+        "none";
+    }
+  };
+
+  xhr.open(
+    "POST",
+    "http://localhost:81/aplikasi-pengaduan-masyarakat/public/Index/getComplaintDetail"
+  );
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.send(`id=${event.target.getAttribute("data-id")}`);
 }
