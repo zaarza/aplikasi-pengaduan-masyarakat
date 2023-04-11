@@ -86,4 +86,39 @@ class Complaint_Model
 
         $this->database->execute();
     }
+
+    public function getDetailComplaint($id)
+    {
+        $this->database->query("SELECT * FROM $this->tableName WHERE id=:id");
+        $this->database->bind("id", intval($id));
+
+        $data = $this->database->getSingleResult();
+        return $data;
+    }
+
+    public function updateComplaint($data, $image)
+    {
+        if ($image['error'] === 4) {
+            $this->database->query("UPDATE $this->tableName SET title=:title, description=:description, location=:location, editedAt=:editedAt WHERE id=:id");
+        } else {
+            $image = $this->uploadImage($image);
+
+            if (!$image) {
+                return false;
+            };
+
+            $this->database->query("UPDATE $this->tableName SET title=:title, description=:description, location=:location, image=:image, editedAt=:editedAt WHERE id=:id");
+            $this->database->bind('image', strval($image));
+        }
+
+        $this->database->bind("title", $data['title']);
+        $this->database->bind("description", $data['description']);
+        $this->database->bind("location", $data['location']);
+        $this->database->bind("editedAt", strval(time()));
+        $this->database->bind("id", intval($_SESSION['user']['id']));
+
+
+        $this->database->execute();
+        return $this->database->rowCount();
+    }
 }

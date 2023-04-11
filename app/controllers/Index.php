@@ -59,8 +59,32 @@ class Index extends Controller
             $model->deleteComplaint($complaint);
         }
 
-        Flasher::setFlash('Berhasil menghapus aduan! ' . $model->getErrorMessage(), "success");
+        Flasher::setFlash('Berhasil menghapus aduan!', "success");
         header('Location:' . BASE_URL . '/');
         exit;
+    }
+
+    public function getComplaintDetail()
+    {
+        $model = $this->model("Complaint_Model");
+        $data = $model->getDetailComplaint($_POST['id']);
+
+        echo json_encode($data);
+    }
+
+    public function updateComplaint()
+    {
+        $model = $this->model("Complaint_Model");
+        $_POST['id'] = $_SESSION['user']['id'];
+
+        if ($model->updateComplaint($_POST, $_FILES) > 0) {
+            Flasher::setFlash('Berhasil mengubah aduan!', "success");
+            header('Location:' . BASE_URL);
+            exit;
+        } else {
+            Flasher::setFlash('Gagal mengubah aduan!', "danger");
+            header('Location:' . BASE_URL);
+            exit;
+        }
     }
 }
