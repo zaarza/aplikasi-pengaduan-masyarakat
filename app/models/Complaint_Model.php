@@ -95,8 +95,9 @@ class Complaint_Model
 
     public function getDetailComplaint($id)
     {
-        $this->database->query("SELECT * FROM $this->tableName WHERE id=:id");
+        $this->database->query("SELECT $this->tableName.*, users.fullName FROM $this->tableName INNER JOIN users ON complaints.id=:id AND users.id=:userId");
         $this->database->bind("id", intval($id));
+        $this->database->bind("userId", intval($_SESSION['user']['id']));
 
         $data = $this->database->getSingleResult();
         return $data;

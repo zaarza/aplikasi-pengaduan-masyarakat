@@ -6,7 +6,7 @@ class Index extends Controller
         if (!isset($_SESSION['user'])) {
             $data['title'] = 'Beranda';
             $this->view("templates/header", $data);
-            $this->view("Index/no-login");
+            $this->view("Index/index");
             $this->view("templates/footer");
         } else {
             if ($_SESSION['user']['userLevel'] == 0) {
@@ -16,7 +16,7 @@ class Index extends Controller
                 $data['complaints'] = $model->getCurrentUserComplaint();
 
                 $this->view("templates/header", $data);
-                $this->view("Index/public", $data);
+                $this->view("Index/public/index", $data);
                 $this->view("templates/footer");
             } else if ($_SESSION['user']['userLevel'] == 1) {
                 $model = $this->model("Complaint_Model");
@@ -24,7 +24,8 @@ class Index extends Controller
 
                 $data['complaints'] = $model->getAllComplaints();
                 $this->view("templates/header", $data);
-                $this->view("Index/admin", $data);
+                $this->view("templates/admin/header", $data);
+                $this->view("Index/admin/index", $data);
                 $this->view("templates/footer");
             }
         }
@@ -45,6 +46,39 @@ class Index extends Controller
         }
 
         $model->addComplaint($_POST, $_FILES);
+    }
+
+    public function detail($id)
+    {
+        $complaintModel = $this->model("Complaint_Model");
+        $responsesModel = $this->model("Response_Model");
+
+        $data['title'] = "Detail";
+        $data['complaint'] = $complaintModel->getDetailComplaint($id);
+        $data['responses'] = $responsesModel->getCurrentComplaintResponses($id);
+
+        if (intval($_SESSION['user']['userLevel']) === 0) {
+        } else if (intval($_SESSION['user']['userLevel']) === 1) {
+            $this->view("templates/header", $data);
+            $this->view("templates/admin/header", $data);
+            $this->view("Index/admin/detailComplaint", $data);
+            $this->view("templates/footer");
+        }
+    }
+
+    public function addResponse($complaintId)
+    {
+        $model = $this->model("Response_Model");
+
+        if ($model->addResponse($complaintId, $_POST) > 0) {
+            Flasher::setFlash("Berhasil menambahkan tanggapan!", "success");
+            header('Location: ' . BASE_URL);
+            exit;
+        } else {
+            Flasher::setFlash("Gagal menambahkan tanggapan!", "failed");
+            header('Location: ' . BASE_URL);
+            exit;
+        }
     }
 
     public function getComplaintDetail()
