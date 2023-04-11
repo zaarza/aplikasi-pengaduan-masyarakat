@@ -48,6 +48,14 @@ class Complaint_Model
         return $newFileName;
     }
 
+    public function getAllComplaints()
+    {
+        $this->database->query("SELECT * FROM $this->tableName");
+
+        $data = $this->database->getManyResult();
+        return $data;
+    }
+
     public function addComplaint($data, $image)
     {
         $image = $this->uploadImage($image);
@@ -114,6 +122,20 @@ class Complaint_Model
         $this->database->bind("location", $data['location']);
         $this->database->bind("editedAt", strval(time()));
         $this->database->bind("id", intval($data['id']));
+
+        $this->database->execute();
+        return $this->database->rowCount();
+    }
+
+    public function markComplaint($id, $status)
+    {
+        if (!isset($_SESSION['user']) || intval($_SESSION['user']['userLevel']) !== 1) {
+            return false;
+        }
+
+        $this->database->query("UPDATE $this->tableName SET status=:status WHERE id=:id");
+        $this->database->bind("id", intval($id));
+        $this->database->bind("status", intval($status));
 
         $this->database->execute();
         return $this->database->rowCount();

@@ -2,22 +2,20 @@
     <?php Flasher::flash() ?>
     <div class="d-flex flex-column row-gap-2">
         <div class="ms-auto">
-            <a href="<?= BASE_URL; ?>/auth/logout" class="btn btn-primary" style="width: fit-content;" data-bs-toggle="modal" data-bs-target="#modalComplaint" onclick="toggleAddComplaintModal()">Tambah Aduan</a>
             <a href="<?= BASE_URL; ?>/auth/logout" class="btn btn-danger" style="width: fit-content;">Logout</a>
         </div>
         <div class="d-flex flex-column row-gap-1 bg-secondary text-light p-3 rounded">
             <p class="m-0">Halo,</p>
             <h3 class="m-0"><?= $_SESSION['user']['fullName'] ?></h3>
-            <p class="m-0">NIK: <?= $_SESSION['user']['nik'] ?></p>
-            <p class="m-0">Masyarakat/Warga</p>
+            <p class="m-0">Admin</p>
         </div>
     </div>
 
     <div class="">
-        <h3>Aduan Saya</h3>
-        <p>Daftar aduan yang telah Anda buat</p>
+        <h3>Aduan Warga</h3>
+        <p>Daftar aduan dari masyarakat</p>
         <form action="<?= BASE_URL; ?>/Index/deleteMultipleComplaint" method="POST">
-            <table class="table table-bordered align-middle table-hover text-center">
+            <table class="table table-bordered align-middle table-hover text-center table-responsive">
                 <tr>
                     <th><input type="checkbox" name="selectAll" id="selectAll" onclick="checkAllComplaints(event)"></th>
                     <th>Judul</th>
@@ -29,7 +27,7 @@
 
                 <?php if (empty($data['complaints'])) : ?>
                     <tr>
-                        <td class="text-center p-5" colspan="6">Anda belum pernah membuat aduan!</td>
+                        <td class="text-center p-5" colspan="6">Aduan saat ini kosong</td>
                     </tr>
                 <?php else : ?>
                     <?php foreach ($data['complaints'] as $complaint) : ?>
@@ -39,9 +37,19 @@
                             <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
                             <td><?= date("d F Y (H:i)", $complaint['editedAt']) ?></td>
                             <td><?= $complaint['status'] ?></td>
-                            <td class="d-flex column-gap-2 justify-content-center">
-                                <button class="btn btn-success" onclick="toggleUpdateComplaintModal(event)" data-bs-toggle="modal" data-bs-target="#modalComplaint" type="button" data-id="<?= $complaint['id'] ?>">Ubah</button>
+                            <td class="d-flex column-gap-2 justify-content-center flex-wrap row-gap-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Tandai
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="<?= BASE_URL; ?>/Index/markComplaint/<?= $complaint['id'] ?>/0">Belum diproses</a></li>
+                                        <li><a class="dropdown-item" href="<?= BASE_URL; ?>/Index/markComplaint/<?= $complaint['id'] ?>/1">Dalam proses</a></li>
+                                        <li><a class="dropdown-item" href="<?= BASE_URL; ?>/Index/markComplaint/<?= $complaint['id'] ?>/2">Selesai</a></li>
+                                    </ul>
+                                </div>
                                 <button class="btn btn-primary" type="button" onclick="toggleDetailComplaintModal(event)" data-bs-toggle="modal" data-bs-target="#modalComplaint" data-id="<?= $complaint['id'] ?>">Detail</button>
+                                <a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-success" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')">Tanggapi</a>
                                 <a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')">Hapus</a>
                             </td>
                             </th>
@@ -51,8 +59,6 @@
             </table>
             <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus aduan yang dipilih?')">Hapus dililih</button>
         </form>
-
-
     </div>
 
     <!-- Add complaint modal -->
@@ -67,17 +73,17 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="title" class="form-label">Judul</label>
-                            <input type="text" class="form-control" name="title" id="complaintModalFormTitle">
+                            <input type="text" class="form-control" name="title" id="complaintModalFormTitle" disabled>
                         </div>
 
                         <div class="mb-3">
                             <label for="description" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" style="height: 100px" name="description" id="complaintModalFormDescription"></textarea>
+                            <textarea class="form-control" style="height: 100px" name="description" id="complaintModalFormDescription" disabled></textarea>
                         </div>
 
                         <div class="mb-3">
                             <label for="location" class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" name="location" id="complaintModalFormLocation">
+                            <input type="text" class="form-control" name="location" id="complaintModalFormLocation" disabled>
                         </div>
 
                         <div class="mb-3">

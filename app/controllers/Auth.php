@@ -33,13 +33,12 @@ class Auth extends Controller
         $this->view("templates/footer");
     }
 
-    public function loginMaster()
+    public function loginAdmin()
     {
         $model = $this->model("User_Model");
 
-        if ($model->loginMaster($_POST)) {
-            Flasher::setFlash("Login sebagai master berhasil", "success");
-            header('Location:' . BASE_URL . "/auth/admin");
+        if ($model->loginAdmin($_POST)) {
+            header('Location:' . BASE_URL);
             exit;
         } else {
             Flasher::setFlash($model->getErrorMessage(), "danger");

@@ -16,10 +16,6 @@ class User_Model
         return $this->errorMessage;
     }
 
-    public function loginAdmin()
-    {
-    }
-
     public function register($data)
     {
         // Validation
@@ -123,7 +119,7 @@ class User_Model
         return false;
     }
 
-    public function loginMaster($data)
+    public function loginAdmin($data)
     {
         // Check Username
         $this->database->query("SELECT * FROM $this->tableName WHERE username=:username AND userLevel=1");

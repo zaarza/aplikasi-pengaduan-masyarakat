@@ -18,6 +18,14 @@ class Index extends Controller
                 $this->view("templates/header", $data);
                 $this->view("Index/public", $data);
                 $this->view("templates/footer");
+            } else if ($_SESSION['user']['userLevel'] == 1) {
+                $model = $this->model("Complaint_Model");
+                $data['title'] = 'Beranda';
+
+                $data['complaints'] = $model->getAllComplaints();
+                $this->view("templates/header", $data);
+                $this->view("Index/admin", $data);
+                $this->view("templates/footer");
             }
         }
     }
@@ -37,31 +45,6 @@ class Index extends Controller
         }
 
         $model->addComplaint($_POST, $_FILES);
-    }
-
-    public function deleteComplaint($id)
-    {
-        $model = $this->model("Complaint_Model");
-        $model->deleteComplaint($id);
-
-        Flasher::setFlash('Berhasil menghapus aduan! ' . $model->getErrorMessage(), "success");
-        header('Location:' . BASE_URL . '/');
-        exit;
-    }
-
-    public function deleteMultipleComplaint()
-    {
-        $model = $this->model("Complaint_Model");
-        $complaints = $_POST['complaints'] ?? [];
-
-        foreach ($complaints as $complaint) {
-
-            $model->deleteComplaint($complaint);
-        }
-
-        Flasher::setFlash('Berhasil menghapus aduan!', "success");
-        header('Location:' . BASE_URL . '/');
-        exit;
     }
 
     public function getComplaintDetail()
@@ -84,6 +67,46 @@ class Index extends Controller
         } else {
             Flasher::setFlash('Gagal mengubah aduan!', "danger");
             header('Location:' . BASE_URL);
+            exit;
+        }
+    }
+
+    public function deleteComplaint($id)
+    {
+        $model = $this->model("Complaint_Model");
+        $model->deleteComplaint($id);
+
+        Flasher::setFlash('Berhasil menghapus aduan!', "success");
+        header('Location:' . BASE_URL . '/');
+        exit;
+    }
+
+    public function deleteMultipleComplaint()
+    {
+        $model = $this->model("Complaint_Model");
+        $complaints = $_POST['complaints'] ?? [];
+
+        foreach ($complaints as $complaint) {
+
+            $model->deleteComplaint($complaint);
+        }
+
+        Flasher::setFlash('Berhasil menghapus aduan!', "success");
+        header('Location:' . BASE_URL . '/');
+        exit;
+    }
+
+    public function markComplaint($id, $status)
+    {
+        $model = $this->model("Complaint_Model");
+
+        if ($model->markComplaint($id, $status) > 0) {
+            Flasher::setFlash('Berhasil menandai aduan!', "success");
+            header('Location:' . BASE_URL . '/');
+            exit;
+        } else {
+            Flasher::setFlash('Gagal menandai aduan!', "danger");
+            header('Location:' . BASE_URL . '/');
             exit;
         }
     }

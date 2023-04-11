@@ -4,7 +4,7 @@
         <h1>Login sebagai Admin/Pengurus</h1>
         <hr>
     </div>
-    <form action="<?= BASE_URL; ?>/auth/loginMaster" method="POST">
+    <form action="<?= BASE_URL; ?>/auth/loginAdmin" method="POST">
         <div class="mb-4">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" name="username">
