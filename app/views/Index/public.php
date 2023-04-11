@@ -37,7 +37,7 @@
                             <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>" class="complaints"></td>
                             <td><?= $complaint['title'] ?></td>
                             <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
-                            <td><?= $complaint['editedAt'] ?></td>
+                            <td><?= date("d F Y (H:i)", $complaint['editedAt']) ?></td>
                             <td><?= $complaint['status'] ?></td>
                             <td class="d-flex column-gap-2 justify-content-center">
                                 <button class="btn btn-success" onclick="toggleUpdateComplaintModal(event)" data-bs-toggle="modal" data-bs-target="#modalComplaint" type="button" data-id="<?= $complaint['id'] ?>">Ubah</button>
