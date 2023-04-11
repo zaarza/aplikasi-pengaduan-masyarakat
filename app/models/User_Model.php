@@ -16,6 +16,10 @@ class User_Model
         return $this->errorMessage;
     }
 
+    public function loginAdmin()
+    {
+    }
+
     public function register($data)
     {
         // Validation
@@ -83,7 +87,7 @@ class User_Model
             return false;
         }
 
-        $this->database->query("INSERT INTO $this->tableName VALUES (NULL, :nik, :fullName, :address, :phoneNumber, :password, :userLevel)");
+        $this->database->query("INSERT INTO $this->tableName VALUES (NULL, :nik, :fullName, :address, :phoneNumber, NULL, :password, :userLevel)");
         $this->database->bind("fullName", $data['fullName']);
         $this->database->bind("address", $data['address']);
         $this->database->bind("nik", intval($data['nik']));
@@ -106,6 +110,30 @@ class User_Model
 
         if (empty($result)) {
             $this->errorMessage = "NIK tidak terdaftar";
+            return false;
+        }
+
+        // Check password
+        if (password_verify($data['password'], $result['password'])) {
+            $_SESSION['user'] = $result;
+            return true;
+        }
+
+        $this->errorMessage = "Password salah";
+        return false;
+    }
+
+    public function loginMaster($data)
+    {
+        // Check Username
+        $this->database->query("SELECT * FROM $this->tableName WHERE username=:username AND userLevel=1");
+        $this->database->bind("username", $data['username']);
+        $this->database->execute();
+
+        $result = $this->database->getSingleResult();
+
+        if (empty($result)) {
+            $this->errorMessage = "Username tidak terdaftar";
             return false;
         }
 

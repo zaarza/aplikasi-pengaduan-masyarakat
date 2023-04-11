@@ -6,7 +6,7 @@
 
     <div class="d-flex flex-column row-gap-2">
         <a href="<?= BASE_URL; ?>/auth/login" class="btn btn-success">Login Masyarakat</a>
-        <a href="" class="btn btn-warning">Login Admin/Pengurus</a>
+        <a href="<?= BASE_URL; ?>/auth/admin" class="btn btn-warning">Login Admin/Pengurus</a>
         <hr>
         <a href="<?= BASE_URL; ?>/auth" class="btn btn-secondary">Register</a>
     </div>
