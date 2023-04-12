@@ -1,6 +1,9 @@
     <div class="d-flex justify-content-center align-content-center flex-column" style="height: 100vh;">
         <div class="d-flex flex-column align-items-center row-gap-3 p-5">
-            <?php Flasher::flash() ?>
+            <div style="width: 500px;">
+                <?php Flasher::flash() ?>
+            </div>
+
             <div class="p-5 w-100 shadow-sm bg-body-tertiary" style="max-width: 500px;">
                 <form action="<?= BASE_URL; ?>/auth/getLogin" method="POST" class="d-flex flex-column row-gap-3">
                     <h1 class="text-center">Login</h1>

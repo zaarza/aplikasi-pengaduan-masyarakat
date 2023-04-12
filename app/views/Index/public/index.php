@@ -1,5 +1,5 @@
 <div class="d-flex flex-column row-gap-3 py-5 container">
-    <a href="" class="btn btn-danger ms-auto" style="width: fit-content;">Keluar</a>
+    <button class="btn btn-danger ms-auto rounded-0" data-bs-toggle="modal" data-bs-target="#logOutModal" style="width: fit-content;">Keluar</button>
     <?php Flasher::flash() ?>
     <div class="">
         <h1 class="p-0 m-0">Aduan Saya</h1>
@@ -11,7 +11,7 @@
             <input type="text" class="form-control rounded-0" placeholder="Cari aduan..." style="max-width: 300px;">
             <span class="input-group-text rounded-0" id="basic-addon2">Cari</span>
         </div>
-        <a href="" class="btn btn-success rounded-0 d-flex align-content-center column-gap-2" style="height: fit-content;"><i class="bi bi-plus-lg"></i>Tambah</a>
+        <a href="" class="btn btn-success rounded-0 d-flex align-content-center column-gap-2" style="height: fit-content;" data-bs-toggle="modal" data-bs-target="#modalComplaint"><i class="bi bi-plus-lg"></i>Tambah</a>
     </div>
     <form action="<?= BASE_URL; ?>/Index/deleteMultipleComplaint" method="POST">
         <table class="table table-bordered table-hover table-striped table-responsive">
@@ -70,40 +70,49 @@
 <!-- Add complaint modal -->
 <div class="modal fade" id="modalComplaint" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content rounded-0">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="complaintModalTitle">Tambah aduan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="<?= BASE_URL; ?>/Index/addComplaint" method="POST" enctype="multipart/form-data" id="complaintModalForm">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Judul</label>
-                        <input type="text" class="form-control" name="title" id="complaintModalFormTitle">
+                <div class="modal-body d-flex flex-column row-gap-3">
+                    <input type="text" class="form-control rounded-0" name="title" id="complaintModalFormTitle" placeholder="Judul">
+                    <textarea class="form-control rounded-0" style="height: 100px" name="description" id="complaintModalFormDescription" placeholder="Deskripsi"></textarea>
+                    <input type="text" class="form-control rounded-0" name="location" id="complaintModalFormLocation" placeholder="Lokasi">
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text rounded-0" for="inputGroupFile01">Gambar</label>
+                        <input type="file" class="form-control rounded-0" name="image" id="complaintModalFormImage">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Deskripsi</label>
-                        <textarea class="form-control" style="height: 100px" name="description" id="complaintModalFormDescription"></textarea>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="location" class="form-label">Lokasi</label>
-                        <input type="text" class="form-control" name="location" id="complaintModalFormLocation">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Gambar</label>
-                        <img src="" class="w-100 mb-3" id="complaintModalFormImagePreview">
-                        <input class="form-control form-control-sm" type="file" name="image" id="complaintModalFormImage">
-                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="complaintModalFormSubmit">Tambah</button>
+                    <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary rounded-0 d-flex align-content-center column-gap-2" id="complaintModalFormSubmit"><i class="bi bi-plus-lg"></i>Tambah</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!-- End of add complaint modal -->
+
+<!-- Delete confirm modal -->
+<div class="modal" tabindex="-1" id="logOutModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Yakin ingin keluar?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                <a href="<?= BASE_URL; ?>/Auth/logOut" class="btn btn-primary">Ya</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of delete confirm modal -->
