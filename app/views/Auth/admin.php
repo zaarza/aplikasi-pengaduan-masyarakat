@@ -1,25 +1,18 @@
-<div class="container p-5 d-flex flex-column row-gap-2">
-    <?php Flasher::flash() ?>
-    <div class="">
-        <h1>Login sebagai Admin/Pengurus</h1>
-        <hr>
-    </div>
-    <form action="<?= BASE_URL; ?>/auth/loginAdmin" method="POST">
-        <div class="mb-4">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username">
+<div class="d-flex justify-content-center align-content-center flex-column" style="height: 100vh;">
+    <div class="d-flex flex-column align-items-center row-gap-3 p-5">
+        <?php Flasher::flash() ?>
+        <div class="p-5 w-100 shadow-sm bg-body-tertiary" style="max-width: 500px;">
+            <form action="<?= BASE_URL; ?>/auth/loginAdmin" method="POST" class="d-flex flex-column row-gap-3">
+                <h1 class="text-center">Login Admin</h1>
+                <input type="text" id="username" name="username" class="form-control rounded-0" placeholder="Username">
+                <input type="password" id="password" name="password" class="form-control rounded-0" placeholder="Kata Sandi">
+                <button type="submit" class="btn btn-primary rounded-0">Login</button>
+                <div class="d-flex align-items-center column-gap-2">
+                    <input type="checkbox" name="remember" id="remember">
+                    <label for="remember">Ingat saya</label>
+                </div>
+            </form>
         </div>
-
-        <div class="mb-4">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    <div class="mt-4">
-        <p class="">Bukan seorang Admin/Pengurus?</p>
-        <a href="<?= BASE_URL; ?>/auth/login" class="btn btn-success">Login Masyarakat</a>
+        <p>Bukan seorang Admin? <a href="<?= BASE_URL; ?>/auth/login" class="link-underline-light">Login sebagai warga</a></p>
     </div>
 </div>
