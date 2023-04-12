@@ -1,51 +1,43 @@
-<div class="container p-5 d-flex flex-column row-gap-2">
-    <?php Flasher::flash() ?>
-    <div class="">
-        <h1>Daftar</h1>
-        <p>Pastikan data yang Anda masukkan benar dan valid!</p>
-        <hr>
-    </div>
+<div class="d-flex justify-content-center align-content-center flex-column">
+    <div class="d-flex flex-column align-items-center row-gap-3 p-5">
+        <?php Flasher::flash() ?>
+        <div class="p-5 w-100 shadow-sm bg-body-tertiary" style="max-width: 500px;">
+            <form action="<?= BASE_URL; ?>/auth/register" method="POST" class="d-flex flex-column row-gap-3">
+                <div class="">
+                    <h1>Daftar</h1>
+                    <p class="text-muted">Pastikan data yang Anda masukkan benar dan valid!</p>
+                </div>
+                <div>
+                    <input type="number" class="form-control rounded-0" id="nik" name="nik" value="<?= $_POST['nik'] ?? "" ?>" placeholder="Nomor Induk Kependudukan (NIK)">
+                    <div class="form-text">NIK yang dimasukkan harus berisi 16 digit angka</div>
+                </div>
 
-    <form action="<?= BASE_URL; ?>/auth/register" method="POST">
-        <div class="mb-4">
-            <label for="nik" class="form-label">Nomor Induk Kependudukan (NIK)</label>
-            <input type="number" class="form-control" id="nik" name="nik" value="<?= $_POST['nik'] ?? "" ?>">
-            <div class="form-text">NIK yang dimasukkan harus berisi 16 digit angka</div>
+                <div>
+                    <input type="text" class="form-control rounded-0" id="fullName" name="fullName" placeholder="Nama lengkap">
+                    <div class="form-text">Masukkan nama sesuai KK atau KTP</div>
+                </div>
+
+                <div>
+                    <input type="text" class="form-control rounded-0" id="address" name="address" placeholder="Alamat">
+                    <div class="form-text">Masukkan alamat sesuai KK atau KTP</div>
+                </div>
+
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-text rounded-0">+62</span>
+                        <input type="text" class="form-control rounded-0" name="phoneNumber" placeholder="Nomor yang bisa dihubungi">
+                    </div>
+                    <div class="form-text">Nomor akan digunakan jika diperlukan</div>
+                </div>
+
+                <div>
+                    <input type="password" class="form-control rounded-0" id="password" name="password" placeholder="Kata sandi">
+                    <div class="form-text">Kata sandi harus berisi minimal 8 karakter</div>
+                </div>
+
+                <button type="submit" class="btn btn-primary rounded-0" name="register">Daftar</button>
+            </form>
         </div>
-
-        <div class="mb-4">
-            <label for="fullName" class="form-label">Nama Lengkap</label>
-            <input type="text" class="form-control" id="fullName" name="fullName">
-            <div class="form-text">Masukkan nama sesuai KK atau KTP</div>
-        </div>
-
-        <div class="mb-4">
-            <label for="address" class="form-label">Alamat Lengkap</label>
-            <input type="text" class="form-control" id="address" name="address">
-        </div>
-
-        <div class="mb-4">
-            <label for="numberPhone" class="form-label">Nomor yang bisa dihubungi</label>
-            <div class="input-group">
-                <span class="input-group-text">+62</span>
-                <input type="text" class="form-control" name="phoneNumber">
-            </div>
-
-            <div class="form-text">Nomor akan digunakan jika diperlukan</div>
-        </div>
-
-        <div class="mb-4">
-            <label for="password" class="form-label">Kata sandi</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-
-
-        <button type="submit" class="btn btn-primary" name="register">Submit</button>
-    </form>
-
-    <p class="mt-4">Sudah mempunyai akun?</p>
-    <div class="d-flex flex-column row-gap-2">
-        <a href="" class="btn btn-success">Login Masyarakat</a>
-        <a href="" class="btn btn-warning">Login Admin/Pengurus</a>
+        <p>Sudah mempunyai akun? <a href="<?= BASE_URL; ?>/auth/login" class="link-underline-light">Login</a></p>
     </div>
 </div>
