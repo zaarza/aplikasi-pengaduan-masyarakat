@@ -1,25 +1,18 @@
-<div class="container p-5 d-flex flex-column row-gap-2">
-    <?php Flasher::flash() ?>
-    <div class="">
-        <h1>Login</h1>
-        <hr>
-    </div>
-    <form action="<?= BASE_URL; ?>/auth/getLogin" method="POST">
-        <div class="mb-4">
-            <label for="nik" class="form-label">Nomor Induk Kependudukan (NIK)</label>
-            <input type="number" class="form-control" id="nik" name="nik" value="8888888888888888">
+    <div class="d-flex justify-content-center align-content-center flex-column" style="height: 100vh;">
+        <div class="d-flex flex-column align-items-center row-gap-3 p-5">
+            <?php Flasher::flash() ?>
+            <div class="p-5 w-100 shadow-sm bg-body-tertiary" style="max-width: 500px;">
+                <form action="<?= BASE_URL; ?>/auth/getLogin" method="POST" class="d-flex flex-column row-gap-3">
+                    <h1 class="text-center">Masuk</h1>
+                    <input type="number" class="form-control rounded-0" id="nik" name="nik" placeholder="Nomor Induk Kependudukan (NIK)">
+                    <input type="password" class="form-control rounded-0" id="password" name="password" placeholder="Kata Sandi">
+                    <button type="submit" class="btn btn-primary rounded-0">Masuk</button>
+                    <div class="d-flex align-items-center column-gap-2">
+                        <input type="checkbox" name="remember" id="remember">
+                        <label for="remember">Ingat saya</label>
+                    </div>
+                </form>
+            </div>
+            <p>Belum memiliki akun? <a href="<?= BASE_URL; ?>/auth" class="link-underline-light">Daftar sekarang!</a></p>
         </div>
-
-        <div class="mb-4">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" name="password" value="12341234">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-
-    <p class="mt-4">Belum mempunyai akun?</p>
-    <div class="d-flex flex-column row-gap-2">
-        <a href="<?= BASE_URL; ?>/auth" class="btn btn-success">Daftar</a>
     </div>
-</div>

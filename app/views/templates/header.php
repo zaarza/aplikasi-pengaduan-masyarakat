@@ -10,4 +10,3 @@
 </head>
 
 <body>
-    <div class="container py-4">
