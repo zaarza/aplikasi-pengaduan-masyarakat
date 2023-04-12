@@ -10,17 +10,19 @@
             <table class="table-bordered table-striped-columns table-hover table">
                 <tr>
                     <th>Nama pengadu</th>
-                    <td><?= $data['complaint']['fullName'] ?></td>
+                    <td><input type="text" name="" id="" value="<?= $data['complaint']['fullName'] ?>"></td>
                 </tr>
 
                 <tr>
                     <th>Judul</th>
-                    <td><?= $data['complaint']['title'] ?></td>
+                    <td><input type="text" name="" id="" value="<?= $data['complaint']['title'] ?>"></td>
                 </tr>
 
                 <tr>
                     <th>Deskripsi</th>
-                    <td><?= $data['complaint']['description'] ?></td>
+                    <td>
+                        <textarea name="" id=""><?= $data['complaint']['description'] ?></textarea>
+                    </td>
                 </tr>
 
                 <tr>
@@ -48,27 +50,6 @@
                     <td><?= $data['complaint']['status'] ?></td>
                 </tr>
             </table>
-        </div>
-
-        <div class="">
-            <h1 class="fs-3">Tanggapan</h1>
-
-            <?php if (!empty($data['responses'])) : ?>
-                <div class="d-flex flex-column row-gap-3">
-                    <?php foreach ($data['responses'] as $response) : ?>
-                        <div class="bg-body-tertiary p-3 d-flex flex-column row-gap-3">
-                            <div class="">
-                                <div class="d-flex column-gap-2">
-                                    <h1 class="fs-5"><?= $response['fullName'] ?></h1>
-                                    <span class="badge text-bg-primary rounded-0" style="height: fit-content;">Admin</span>
-                                </div>
-                                <h2 class="fs-6 text-muted"><?= date("d F Y (H:i)", $response['createdAt']) ?></h2>
-                            </div>
-                            <p><?= $response['response'] ?></p>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif ?>
         </div>
     </div>
 </div>

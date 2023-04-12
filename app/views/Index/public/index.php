@@ -14,35 +14,37 @@
         <a href="" class="btn btn-success rounded-0 d-flex align-content-center column-gap-2" style="height: fit-content;" data-bs-toggle="modal" data-bs-target="#modalComplaint"><i class="bi bi-plus-lg"></i>Tambah</a>
     </div>
     <form action="<?= BASE_URL; ?>/Index/deleteMultipleComplaint" method="POST">
-        <table class="table table-bordered table-hover table-striped table-responsive">
-            <tr>
-                <th><input type="checkbox" name="selectAll" id="selectAll" onclick="checkAllComplaints(event)"></th>
-                <th class="w-auto">Judul</th>
-                <th style="max-width: 200px;">Waktu Aduan</th>
-                <th style="max-width: 200px;">Waktu Diperbarui</th>
-                <th>Status</th>
-                <th style="max-width: 60px;">Lihat</th>
-                <th style="max-width: 60px;">Hapus</th>
-            </tr>
-
-            <?php if (empty($data['complaints'])) : ?>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
                 <tr>
-                    <td class="p-5 text-center" colspan="7">Anda belum pernah membuat aduan!</td>
+                    <th><input type="checkbox" name="selectAll" id="selectAll" onclick="checkAllComplaints(event)"></th>
+                    <th class="w-auto">Judul</th>
+                    <th style="max-width: 200px;">Waktu Aduan</th>
+                    <th style="max-width: 200px;">Waktu Diperbarui</th>
+                    <th>Status</th>
+                    <th style="max-width: 60px;">Lihat</th>
+                    <th style="max-width: 60px;">Hapus</th>
                 </tr>
-            <?php else : ?>
-                <?php foreach ($data['complaints'] as $complaint) : ?>
+
+                <?php if (empty($data['complaints'])) : ?>
                     <tr>
-                        <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>" class="complaints"></td>
-                        <td><?= $complaint['title'] ?></td>
-                        <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
-                        <td><?= $complaint['editedAt'] === NULL ? "" : date("d F Y (H:i)", $complaint['editedAt']) ?></td>
-                        <td><?= $complaint['status'] ?></td>
-                        <td><a href="<?= BASE_URL; ?>/index/detail/<?= $complaint['id'] ?>" class="btn btn-primary rounded-0"><i class="bi bi-pencil-fill"></i></a></td>
-                        <td><a href="<?= BASE_URL; ?>/index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger rounded-0" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')"><i class="bi bi-trash3-fill"></i></a></td>
+                        <td class="p-5 text-center" colspan="7">Anda belum pernah membuat aduan!</td>
                     </tr>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </table>
+                <?php else : ?>
+                    <?php foreach ($data['complaints'] as $complaint) : ?>
+                        <tr>
+                            <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>" class="complaints"></td>
+                            <td><?= $complaint['title'] ?></td>
+                            <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
+                            <td><?= $complaint['editedAt'] === NULL ? "" : date("d F Y (H:i)", $complaint['editedAt']) ?></td>
+                            <td><?= $complaint['status'] ?></td>
+                            <td><a href="<?= BASE_URL; ?>/index/detail/<?= $complaint['id'] ?>" class="btn btn-primary rounded-0"><i class="bi bi-eye-fill"></i></a></td>
+                            <td><a href="<?= BASE_URL; ?>/index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger rounded-0" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')"><i class="bi bi-trash3-fill"></i></a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </table>
+        </div>
         <button type="button" class="btn btn-danger rounded-0" data-bs-toggle="modal" data-bs-target="#deleteModal">Hapus dipilih</button>
 
         <!-- Delete confirm modal -->
@@ -97,7 +99,7 @@
 </div>
 <!-- End of add complaint modal -->
 
-<!-- Delete confirm modal -->
+<!-- Logout confirm modal -->
 <div class="modal" tabindex="-1" id="logOutModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -115,4 +117,4 @@
         </div>
     </div>
 </div>
-<!-- End of delete confirm modal -->
+<!-- End of logout confirm modal -->

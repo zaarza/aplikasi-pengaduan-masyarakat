@@ -2,7 +2,6 @@
     <div class="d-flex flex-column row-gap-5">
         <div class="d-flex justify-content-between">
             <a href="<?= BASE_URL; ?>" class="btn btn-secondary rounded-0 d-flex align-content-center column-gap-2" style="width: fit-content;"><i class="bi bi-arrow-left"></i> Kembali</a>
-            <a href="<?= BASE_URL; ?>/index/update/<?= $data['complaint']['id'] ?>" class="btn btn-success rounded-0 d-flex align-content-center column-gap-2" style="width: fit-content;"><i class="bi bi-pencil-fill"></i> Ubah</a>
         </div>
 
         <div class="">
@@ -71,4 +70,9 @@
             <?php endif ?>
         </div>
     </div>
+
+    <form action="<?= BASE_URL; ?>/Index/addResponse/<?= $data['complaint']['id'] ?>" method="POST" class="d-flex flex-column row-gap-3">
+        <textarea class="form-control" rows="3" name="response" placeholder="Tulis tanggapan..."></textarea>
+        <button type="submit" class="btn btn-primary">Kirim</button>
+    </form>
 </div>

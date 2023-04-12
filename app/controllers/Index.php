@@ -24,7 +24,6 @@ class Index extends Controller
 
                 $data['complaints'] = $model->getAllComplaints();
                 $this->view("templates/header", $data);
-                $this->view("templates/admin/header", $data);
                 $this->view("Index/admin/index", $data);
                 $this->view("templates/footer");
             }
@@ -63,10 +62,26 @@ class Index extends Controller
             $this->view("templates/footer");
         } else if (intval($_SESSION['user']['userLevel']) === 1) {
             $this->view("templates/header", $data);
-            $this->view("templates/admin/header", $data);
-            $this->view("Index/admin/detailComplaint", $data);
+            $this->view("Index/admin/detail", $data);
             $this->view("templates/footer");
         }
+    }
+
+    public function update($id)
+    {
+        if (intval($_SESSION['user']['userLevel']) !== 0) {
+            header('Location: ' . BASE_URL);
+            exit;
+        }
+
+        $complaintModel = $this->model("Complaint_Model");
+
+        $data['title'] = "Update";
+        $data['complaint'] = $complaintModel->getDetailComplaint($id);
+
+        $this->view("templates/header", $data);
+        $this->view("Index/public/update", $data);
+        $this->view("templates/footer");
     }
 
     public function addResponse($complaintId)
