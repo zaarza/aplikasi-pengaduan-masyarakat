@@ -21,7 +21,7 @@
                 <th style="max-width: 200px;">Waktu Aduan</th>
                 <th style="max-width: 200px;">Waktu Diperbarui</th>
                 <th>Status</th>
-                <th style="max-width: 60px;">Ubah</th>
+                <th style="max-width: 60px;">Lihat</th>
                 <th style="max-width: 60px;">Hapus</th>
             </tr>
 
@@ -35,10 +35,10 @@
                         <td><input type="checkbox" name="complaints[]" value="<?= $complaint['id'] ?>" class="complaints"></td>
                         <td><?= $complaint['title'] ?></td>
                         <td><?= date("d F Y (H:i)", $complaint['createdAt']) ?></td>
-                        <td><?= $complaint['editedAt'] === 0 ? "-" : date("d F Y (H:i)", $complaint['editedAt']) ?></td>
+                        <td><?= $complaint['editedAt'] === NULL ? "" : date("d F Y (H:i)", $complaint['editedAt']) ?></td>
                         <td><?= $complaint['status'] ?></td>
-                        <td><button class="btn btn-primary rounded-0" onclick="toggleUpdateComplaintModal(event)" data-bs-toggle="modal" data-bs-target="#modalComplaint" type="button" data-id="<?= $complaint['id'] ?>"><i class="bi bi-pencil-fill"></i></button></td>
-                        <td><a href="<?= BASE_URL; ?>/Index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger rounded-0" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')"><i class="bi bi-trash3-fill"></i></a></td>
+                        <td><a href="<?= BASE_URL; ?>/index/detail/<?= $complaint['id'] ?>" class="btn btn-primary rounded-0"><i class="bi bi-pencil-fill"></i></a></td>
+                        <td><a href="<?= BASE_URL; ?>/index/deleteComplaint/<?= $complaint['id']  ?>" class="btn btn-danger rounded-0" onclick="return confirm('Apakah Anda ingin menghapus aduan ini?')"><i class="bi bi-trash3-fill"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
             <?php endif; ?>

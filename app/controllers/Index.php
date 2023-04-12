@@ -58,6 +58,9 @@ class Index extends Controller
         $data['responses'] = $responsesModel->getCurrentComplaintResponses($id);
 
         if (intval($_SESSION['user']['userLevel']) === 0) {
+            $this->view("templates/header", $data);
+            $this->view("Index/public/detail", $data);
+            $this->view("templates/footer");
         } else if (intval($_SESSION['user']['userLevel']) === 1) {
             $this->view("templates/header", $data);
             $this->view("templates/admin/header", $data);
